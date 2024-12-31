@@ -1,0 +1,5 @@
+C:/Users/Sia/Desktop/Unity Projects/reminiscence/.utmp/RelWithDebInfo/1o492113/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/Sia/Desktop/Unity Projects/reminiscence/.utmp/RelWithDebInfo/1o492113/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/Sia/Desktop/Unity Projects/reminiscence/.utmp/RelWithDebInfo/1o492113/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/Sia/Desktop/Unity Projects/reminiscence/.utmp/RelWithDebInfo/1o492113/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/Sia/Desktop/Unity Projects/reminiscence/.utmp/RelWithDebInfo/1o492113/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
