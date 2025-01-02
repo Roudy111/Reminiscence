@@ -12,46 +12,54 @@ public class BubbleFloat : MonoBehaviour
     [SerializeField] private float noiseSpeed = 0.5f;
     [SerializeField] private float noiseStrength = 0.5f;
 
+    [Header("Physics Settings")]
+    [SerializeField] private float forceMultiplier = 5f;
+    [SerializeField] private float damping = 1f;
+
     private Vector3 startPosition;
     private float randomOffset;
     private Vector3 randomRotation;
+    private Rigidbody rb;
 
     private void Start()
     {
-        // Store initial position
+        // Cache rigidbody reference
+        rb = GetComponent<Rigidbody>();
+        if (rb)
+        {
+            rb.useGravity = false;
+            rb.linearDamping = damping; // Updated from drag
+            rb.angularDamping = damping; // Added for rotation damping
+        }
+        
         startPosition = transform.position;
-        
-        // Random offset for each bubble to make them unique
         randomOffset = Random.Range(0f, 2f * Mathf.PI);
-        
-        // Random rotation axis
         randomRotation = Random.onUnitSphere;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        // Time-based variables
+        if (!rb) return;
+
         float time = Time.time;
         
-        // Gentle floating motion (up and down)
+        // Calculate desired position
         float floatY = Mathf.Sin(time * floatSpeed + randomOffset) * floatHeight;
-        
-        // Swaying motion (side to side and front to back)
         float swayX = Mathf.Sin(time * 0.6f + randomOffset) * swayAmount;
         float swayZ = Mathf.Cos(time * 0.4f + randomOffset) * swayAmount;
-
-        // Perlin noise for organic random motion
         float noiseX = (Mathf.PerlinNoise(time * noiseSpeed, randomOffset) - 0.5f) * noiseStrength;
         float noiseZ = (Mathf.PerlinNoise(randomOffset, time * noiseSpeed) - 0.5f) * noiseStrength;
 
-        // Combine all motions
-        Vector3 newPosition = startPosition + new Vector3(swayX + noiseX, floatY, swayZ + noiseZ);
-        transform.position = newPosition;
+        Vector3 targetPosition = startPosition + new Vector3(swayX + noiseX, floatY, swayZ + noiseZ);
+        
+        // Apply force towards target position
+        Vector3 moveDirection = (targetPosition - rb.position);
+        rb.AddForce(moveDirection * forceMultiplier);
 
-        // Gentle rotation
-        transform.Rotate(randomRotation * rotationSpeed * Time.deltaTime);
+        // Apply rotation through physics
+        rb.AddTorque(randomRotation * rotationSpeed * Time.fixedDeltaTime);
 
-        // Optional: Add slight scale pulsing for more "magical" effect
+        // Scale pulsing
         float scale = 1f + Mathf.Sin(time * 0.5f + randomOffset) * 0.05f;
         transform.localScale = Vector3.one * scale;
     }
