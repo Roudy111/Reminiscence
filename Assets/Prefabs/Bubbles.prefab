@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 148d8f0037a1f4f4e84872e824232a0c, type: 2}
+  - {fileID: 2100000, guid: 47be791c528be904598e4b47484039b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -168,6 +168,8 @@ MonoBehaviour:
   floatSpeed: 1
   floatHeight: 0.5
   swayAmount: 0.5
-  rotationSpeed: 20
+  rotationSpeed: 5
   noiseSpeed: 0.5
   noiseStrength: 0.5
+  forceMultiplier: 5
+  damping: 1
