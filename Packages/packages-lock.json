@@ -14,6 +14,13 @@
       },
       "hash": "ee96eecc99eeed0be5847c7046e062d2cebb3435"
     },
+    "com.meta.xr.sdk.audio": {
+      "version": "71.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.meta.xr.sdk.core": {
       "version": "71.0.0",
       "depth": 0,
