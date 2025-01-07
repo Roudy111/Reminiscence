@@ -1269,12 +1269,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 4815587844871949377, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
-  initialBubbleCount: 15
-  pathCount: 1
-  pathRadius: 10
-  pathHeight: 5
-  noiseScale: 1
-  flowSpeed: 1
+  initialBubbleCount: 30
+  spawnRadius: 10
+  minHeight: 2
+  maxHeight: 10
+  centerBias: 0.5
+  showSpawnArea: 1
 --- !u!1 &962563532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,9 +1315,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 193106520}
     m_Modifications:
+    - target: {fileID: 319666961120822100, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.02657455
+      objectReference: {fileID: 0}
     - target: {fileID: 597839387667802579, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
       propertyPath: _providedSkeletonType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581824662108350127, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.029358592
       objectReference: {fileID: 0}
     - target: {fileID: 3817605947884828321, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1359,9 +1367,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4203898523299135714, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.009527476
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203898523299135714, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.01224212
+      objectReference: {fileID: 0}
+    - target: {fileID: 5376228129323388834, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.012848594
+      objectReference: {fileID: 0}
+    - target: {fileID: 5376228129323388834, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0034359775
+      objectReference: {fileID: 0}
     - target: {fileID: 6442339640571472327, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
       propertyPath: m_Name
       value: ArmatureSkinningUpdateRetarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442339640571472327, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6655084156946982609, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1373,7 +1401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6655084156946982609, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.041012757
+      value: -0.041012753
       objectReference: {fileID: 0}
     - target: {fileID: 7335297518904446665, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
       propertyPath: m_Effectors.Array.size
@@ -1402,6 +1430,10 @@ PrefabInstance:
     - target: {fileID: 7335297518904446665, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
       propertyPath: m_Effectors.Array.data[0].m_Style.color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7367197533957481950, guid: eb6bc10f92728a546a3d8c144d0ef787, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.000000028870986
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1902,6 +1934,10 @@ PrefabInstance:
     - target: {fileID: 4815587844871949377, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
       propertyPath: m_Name
       value: Bubbles
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815587844871949377, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7352364047246975864, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
       propertyPath: floatSpeed

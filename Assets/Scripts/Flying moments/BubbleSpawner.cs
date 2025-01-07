@@ -7,57 +7,22 @@ public class BubbleSpawner : MonoBehaviour
     [SerializeField] private GameObject bubblePrefab;
     [SerializeField] private int initialBubbleCount = 20;
     
-    [Header("Flow Path Settings")]
-    [SerializeField] private int pathCount = 3;
-    [SerializeField] private float pathRadius = 15f;
-    [SerializeField] private float pathHeight = 10f;
-    [SerializeField] private float noiseScale = 1f;
-    [SerializeField] private float flowSpeed = 1f;
+    [Header("Volume Settings")]
+    [SerializeField] private float spawnRadius = 10f;    // Horizontal spread
+    [SerializeField] private float minHeight = 2f;       // Minimum spawn height
+    [SerializeField] private float maxHeight = 15f;      // Maximum spawn height
+    [SerializeField] private float centerBias = 0.5f;    // How much bubbles cluster toward center (0-1)
     
-    private List<Vector3> spawnPoints = new List<Vector3>();
-    private float time;
+    [Header("Debug")]
+    [SerializeField] private bool showSpawnArea = true;
 
     private void Start()
     {
         SpawnInitialBubbles();
     }
 
-    private void Update()
-    {
-        time += Time.deltaTime * flowSpeed;
-        UpdateSpawnPoints();
-    }
-
-    private void UpdateSpawnPoints()
-    {
-        spawnPoints.Clear();
-        
-        for(int p = 0; p < pathCount; p++)
-        {
-            float pathOffset = (float)p / pathCount * Mathf.PI * 2;
-            
-            // Create flowing curves using sine waves and Perlin noise
-            for(float t = 0; t < Mathf.PI * 2; t += 0.3f)
-            {
-                float x = Mathf.Sin(t + pathOffset + time) * pathRadius;
-                float z = Mathf.Cos(t + pathOffset + time) * pathRadius;
-                
-                // Add organic movement using Perlin noise
-                float noiseX = Mathf.PerlinNoise(t + time + pathOffset, 0) * noiseScale;
-                float noiseZ = Mathf.PerlinNoise(0, t + time + pathOffset) * noiseScale;
-                
-                // Create a flowing up-and-down motion
-                float y = Mathf.Sin(t * 2 + time + pathOffset) * pathHeight + pathHeight;
-                
-                Vector3 point = new Vector3(x + noiseX, y, z + noiseZ);
-                spawnPoints.Add(transform.position + point);
-            }
-        }
-    }
-
     private void SpawnInitialBubbles()
     {
-        UpdateSpawnPoints();
         for (int i = 0; i < initialBubbleCount; i++)
         {
             SpawnBubble();
@@ -66,23 +31,68 @@ public class BubbleSpawner : MonoBehaviour
 
     public void SpawnBubble()
     {
-        if(spawnPoints.Count == 0) return;
-        
-        // Pick a random point along the flow paths
-        Vector3 spawnPosition = spawnPoints[Random.Range(0, spawnPoints.Count)];
+        Vector3 spawnPosition = GetRandomSpawnPosition();
         GameObject bubble = Instantiate(bubblePrefab, spawnPosition, Random.rotation);
         bubble.transform.parent = transform;
     }
 
+    private Vector3 GetRandomSpawnPosition()
+    {
+        // Get random angle
+        float angle = Random.Range(0f, Mathf.PI * 2);
+        
+        // Get random radius with center bias
+        float randomValue = Random.value;
+        float radius = spawnRadius * Mathf.Pow(randomValue, centerBias);
+        
+        // Calculate position with random height
+        float x = Mathf.Cos(angle) * radius;
+        float y = Mathf.Lerp(minHeight, maxHeight, Random.value);
+        float z = Mathf.Sin(angle) * radius;
+
+        return transform.position + new Vector3(x, y, z);
+    }
+
     private void OnDrawGizmos()
     {
-        if (!Application.isPlaying) return;
-        
-        // Draw the flow paths
-        Gizmos.color = Color.cyan;
-        foreach(Vector3 point in spawnPoints)
+        if (!showSpawnArea) return;
+
+        // Draw bottom circle
+        Gizmos.color = new Color(0.5f, 1f, 0.5f, 0.2f);
+        DrawCircle(transform.position + Vector3.up * minHeight, spawnRadius);
+
+        // Draw top circle
+        DrawCircle(transform.position + Vector3.up * maxHeight, spawnRadius);
+
+        // Draw connecting lines
+        int segments = 8;
+        for (int i = 0; i < segments; i++)
         {
-            Gizmos.DrawWireSphere(point, 0.3f);
+            float angle = i * Mathf.PI * 2 / segments;
+            float x = Mathf.Cos(angle) * spawnRadius;
+            float z = Mathf.Sin(angle) * spawnRadius;
+
+            Vector3 bottom = transform.position + new Vector3(x, minHeight, z);
+            Vector3 top = transform.position + new Vector3(x, maxHeight, z);
+            Gizmos.DrawLine(bottom, top);
+        }
+    }
+
+    private void DrawCircle(Vector3 center, float radius)
+    {
+        int segments = 32;
+        Vector3 prevPoint = center + new Vector3(radius, 0, 0);
+        
+        for (int i = 1; i <= segments; i++)
+        {
+            float angle = i * Mathf.PI * 2 / segments;
+            Vector3 nextPoint = center + new Vector3(
+                Mathf.Cos(angle) * radius,
+                0,
+                Mathf.Sin(angle) * radius
+            );
+            Gizmos.DrawLine(prevPoint, nextPoint);
+            prevPoint = nextPoint;
         }
     }
 }

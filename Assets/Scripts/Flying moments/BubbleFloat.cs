@@ -3,63 +3,50 @@ using UnityEngine;
 public class BubbleFloat : MonoBehaviour
 {
     [Header("Float Settings")]
-    [SerializeField] private float floatSpeed = 1f;
-    [SerializeField] private float floatHeight = 0.5f;
-    [SerializeField] private float swayAmount = 0.5f;
+    [SerializeField] private float baseFloatSpeed = 0.3f;
+    [SerializeField] private float verticalBias = 0.2f;  // Makes bubbles tend to float upward
+    [SerializeField] private float floatRange = 2f;      // How far they can drift from their path
     
-    [Header("Random Motion")]
-    [SerializeField] private float rotationSpeed = 20f;
-    [SerializeField] private float noiseSpeed = 0.5f;
-    [SerializeField] private float noiseStrength = 0.5f;
-
-    [Header("Physics Settings")]
-    [SerializeField] private float forceMultiplier = 5f;
-    [SerializeField] private float damping = 1f;
+    [Header("Motion Settings")]
+    [SerializeField] private float rotationSpeed = 15f;
+    [SerializeField] private float noiseScale = 0.5f;    // Scale of the flow field
 
     private Vector3 startPosition;
     private float randomOffset;
     private Vector3 randomRotation;
-    private Rigidbody rb;
+    private float timeOffset;
 
     private void Start()
     {
-        // Cache rigidbody reference
-        rb = GetComponent<Rigidbody>();
-        if (rb)
-        {
-            rb.useGravity = false;
-            rb.linearDamping = damping; // Updated from drag
-            rb.angularDamping = damping; // Added for rotation damping
-        }
-        
         startPosition = transform.position;
-        randomOffset = Random.Range(0f, 2f * Mathf.PI);
+        randomOffset = Random.Range(0f, 100f);
+        timeOffset = Random.Range(0f, 100f);
         randomRotation = Random.onUnitSphere;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (!rb) return;
-
         float time = Time.time;
-        
-        // Calculate desired position
-        float floatY = Mathf.Sin(time * floatSpeed + randomOffset) * floatHeight;
-        float swayX = Mathf.Sin(time * 0.6f + randomOffset) * swayAmount;
-        float swayZ = Mathf.Cos(time * 0.4f + randomOffset) * swayAmount;
-        float noiseX = (Mathf.PerlinNoise(time * noiseSpeed, randomOffset) - 0.5f) * noiseStrength;
-        float noiseZ = (Mathf.PerlinNoise(randomOffset, time * noiseSpeed) - 0.5f) * noiseStrength;
 
-        Vector3 targetPosition = startPosition + new Vector3(swayX + noiseX, floatY, swayZ + noiseZ);
-        
-        // Apply force towards target position
-        Vector3 moveDirection = (targetPosition - rb.position);
-        rb.AddForce(moveDirection * forceMultiplier);
+        // Create a flow field effect using multiple Perlin noise samples
+        float xFlow = Mathf.PerlinNoise(time * baseFloatSpeed + randomOffset, timeOffset) * 2 - 1;
+        float yFlow = Mathf.PerlinNoise(timeOffset, time * baseFloatSpeed + randomOffset) * 2 - 1;
+        float zFlow = Mathf.PerlinNoise(randomOffset, timeOffset + time * baseFloatSpeed) * 2 - 1;
 
-        // Apply rotation through physics
-        rb.AddTorque(randomRotation * rotationSpeed * Time.fixedDeltaTime);
+        // Add upward bias to make bubbles tend to float up
+        yFlow += verticalBias;
 
-        // Scale pulsing
+        // Calculate new position
+        Vector3 flowMotion = new Vector3(xFlow, yFlow, zFlow) * floatRange;
+        Vector3 newPosition = startPosition + flowMotion;
+
+        // Smooth movement towards new position
+        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime);
+
+        // Gentle rotation
+        transform.Rotate(randomRotation * rotationSpeed * Time.deltaTime);
+
+        // Optional: Add subtle scale pulsing
         float scale = 1f + Mathf.Sin(time * 0.5f + randomOffset) * 0.05f;
         transform.localScale = Vector3.one * scale;
     }
