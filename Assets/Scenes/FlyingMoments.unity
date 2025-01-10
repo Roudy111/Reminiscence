@@ -909,7 +909,7 @@ MonoBehaviour:
   initialBubbleCount: 30
   spawnRadius: 10
   minHeight: 2
-  maxHeight: 10
+  maxHeight: 7
   centerBias: 0.5
   showSpawnArea: 1
 --- !u!1 &1176640120
@@ -1270,6 +1270,14 @@ PrefabInstance:
     - target: {fileID: 7352364047246975864, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
       propertyPath: floatSpeed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352364047246975864, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
+      propertyPath: rotationSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352364047246975864, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
+      propertyPath: baseFloatSpeed
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8450770562945730359, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
       propertyPath: m_LocalPosition.x
