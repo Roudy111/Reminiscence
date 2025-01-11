@@ -120,19 +120,22 @@ public class BubbleSpawner : MonoBehaviour
         }
     }
 
-    private Vector3 GetRandomHemispherePosition(float normalizedRadius)
-    {
-        float theta = Random.Range(0f, Mathf.PI * 2);    // Azimuthal angle
-        float phi = Random.Range(0f, Mathf.PI * 0.5f);   // Polar angle (half for hemisphere)
-        
-        // Convert to Cartesian coordinates on unit hemisphere
-        float x = Mathf.Sin(phi) * Mathf.Cos(theta) * normalizedRadius;
-        float y = Mathf.Cos(phi) * normalizedRadius;
-        float z = Mathf.Sin(phi) * Mathf.Sin(theta) * normalizedRadius;
-        
-        return new Vector3(x, y, z);
-    }
-
+private Vector3 GetRandomHemispherePosition(float normalizedRadius)
+{
+    // Get random angles
+    float theta = Random.Range(0f, Mathf.PI * 2);    // Azimuthal angle (around y-axis)
+    float phi = Random.Range(0f, Mathf.PI * 0.5f);   // Polar angle (half for hemisphere)
+    
+    // Get random radius (cube root for uniform distribution in volume)
+    float randomRadius = normalizedRadius * Mathf.Pow(Random.value, 1f/3f);
+    
+    // Convert to Cartesian coordinates
+    float x = Mathf.Sin(phi) * Mathf.Cos(theta) * randomRadius;
+    float y = Mathf.Cos(phi) * randomRadius;
+    float z = Mathf.Sin(phi) * Mathf.Sin(theta) * randomRadius;
+    
+    return new Vector3(x, y, z);
+}    
     private void OnDrawGizmos()
     {
         if (!showSpawnArea) return;
