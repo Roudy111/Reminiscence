@@ -1157,7 +1157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1720533274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1383,22 +1383,6 @@ PrefabInstance:
     - target: {fileID: 4815587844871949377, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
       propertyPath: m_Name
       value: Bubbles
-      objectReference: {fileID: 0}
-    - target: {fileID: 4815587844871949377, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7352364047246975864, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
-      propertyPath: floatSpeed
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7352364047246975864, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
-      propertyPath: rotationSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7352364047246975864, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
-      propertyPath: baseFloatSpeed
-      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8450770562945730359, guid: 7f2819e6a92b6ba4fb0b561f3ac9a40b, type: 3}
       propertyPath: m_LocalPosition.x

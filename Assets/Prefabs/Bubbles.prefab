@@ -137,11 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f519440458f45954d889c951fc2721e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatSpeed: 1
-  floatHeight: 0.5
-  swayAmount: 0.5
-  flowSpeed: 0.2
-  pathRadius: 15
-  rotationSpeed: 5
-  noiseSpeed: 0.5
-  noiseStrength: 0.5
+  baseFloatSpeed: 0.1
+  verticalBias: 0.2
+  floatRange: 2
+  rotationSpeed: 3
+  noiseScale: 0.5
