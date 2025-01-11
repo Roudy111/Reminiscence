@@ -1462,7 +1462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9035406726101529248, guid: b39598eac49c34b4e8d48b2a37817316, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1778,6 +1778,10 @@ PrefabInstance:
     - target: {fileID: 8451645079201966074, guid: 7141c59a213204143b5b8cc917d38744, type: 3}
       propertyPath: m_Name
       value: Env Sphere-White
+      objectReference: {fileID: 0}
+    - target: {fileID: 8451645079201966074, guid: 7141c59a213204143b5b8cc917d38744, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
