@@ -1576,6 +1576,7 @@ Transform:
   - {fileID: 552212424}
   - {fileID: 912911302}
   - {fileID: 2004982291}
+  - {fileID: 1276138599}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1245588885
@@ -1718,28 +1719,30 @@ MonoBehaviour:
     OnStartMove:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 0
+        - m_Target: {fileID: 1276138600}
+          m_TargetAssemblyTypeName: Oculus.Movement.Locomotion.Deprecated.AnimationConstraintMasker,
+            Meta.Movement
+          m_MethodName: StartApplyingMaskFor
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Locomotion
             m_BoolArgument: 0
           m_CallState: 2
     OnStopMove:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 0
+        - m_Target: {fileID: 1276138600}
+          m_TargetAssemblyTypeName: Oculus.Movement.Locomotion.Deprecated.AnimationConstraintMasker,
+            Meta.Movement
+          m_MethodName: FinishApplyingMaskFor
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -1785,6 +1788,54 @@ Transform:
   - {fileID: 1720533275}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1276138598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1276138599}
+  - component: {fileID: 1276138600}
+  m_Layer: 0
+  m_Name: LocomotionMask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1276138599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276138598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1245588884}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1276138600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276138598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4154875e392cb344d9dd4d74b39327fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mask: {fileID: 31900000, guid: 7129d5b0eec7de64a93fce9a6ba8f4d7, type: 2}
+  _activityExitTime: 1
+  _animator: {fileID: 1436114433}
+  _constraintsToDeactivate: []
 --- !u!4 &1284667841 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7049566672430057770, guid: c228ac100af4aec4b8f7e3153454976f, type: 3}
@@ -1803,6 +1854,11 @@ Transform:
 --- !u!4 &1436114432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 310144039248628156, guid: db651677348935b498d63df9bb24e0b8, type: 3}
+  m_PrefabInstance: {fileID: 7818967758054618192}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1436114433 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2233121604193039186, guid: db651677348935b498d63df9bb24e0b8, type: 3}
   m_PrefabInstance: {fileID: 7818967758054618192}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1436114434 stripped
@@ -3989,7 +4045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &387752391141842625
 GameObject:
   m_ObjectHideFlags: 0
